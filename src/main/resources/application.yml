@@ -5,4 +5,4 @@ spring:
 amazon:
   accessKey: ${AWS_ACCESS_KEY}
   secretKey: ${AWS_SECRET_KEY}
-  region: ""
+  region: ${AWS_REGION}
