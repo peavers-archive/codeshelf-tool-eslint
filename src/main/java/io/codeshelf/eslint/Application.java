@@ -1,4 +1,4 @@
-package com.example.eslint;
+package io.codeshelf.eslint;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

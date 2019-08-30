@@ -1,6 +1,6 @@
-package com.example.eslint.runner;
+package io.codeshelf.eslint.runner;
 
-import com.example.eslint.service.ProcessService;
+import io.codeshelf.eslint.service.ProcessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 

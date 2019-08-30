@@ -1,4 +1,4 @@
-package com.example.eslint.service;
+package io.codeshelf.eslint.service;
 
 import com.amazonaws.services.kinesisfirehose.AmazonKinesisFirehose;
 import com.amazonaws.services.kinesisfirehose.model.PutRecordRequest;
@@ -28,10 +28,8 @@ public class FirehoseServiceImpl implements FirehoseService {
     putRecordRequest.setRecord(record);
 
     log.info("sending to firehose...");
-
     final PutRecordResult putRecordResult = amazonKinesisFirehose.putRecord(putRecordRequest);
-
-    log.info("sent to firehose {}", putRecordResult.getRecordId());
+    log.info("sending to firehose complete.");
 
     return putRecordResult;
   }

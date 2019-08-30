@@ -1,4 +1,4 @@
-package com.example.eslint;
+package io.codeshelf.eslint;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

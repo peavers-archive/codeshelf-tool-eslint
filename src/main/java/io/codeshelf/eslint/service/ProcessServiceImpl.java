@@ -1,4 +1,4 @@
-package com.example.eslint.service;
+package io.codeshelf.eslint.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,8 @@ public class ProcessServiceImpl implements ProcessService {
 
   @Override
   public void execute() throws IOException {
-    final ProcessBuilder processBuilder = new ProcessBuilder(getCommand());
+
+    final ProcessBuilder processBuilder = new ProcessBuilder(eslintCommand());
     final Process process = processBuilder.start();
     final String output = consoleOutput(process.getInputStream());
     final String error = consoleOutput(process.getErrorStream());
@@ -36,10 +37,13 @@ public class ProcessServiceImpl implements ProcessService {
       log.info("eslint result {}", output);
     }
 
+    process.getInputStream().close();
+    process.getErrorStream().close();
+
     firehoseService.pushRecord("code-linter", output.getBytes());
   }
 
-  private List<String> getCommand() {
+  private List<String> eslintCommand() {
     final ArrayList<String> commands = new ArrayList<>();
     commands.add("eslint");
     commands.add(SOURCE + "/**");

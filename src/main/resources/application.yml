@@ -1,6 +1,6 @@
 spring:
   application:
-    name: esLint
+    name: codeshelf-tool-eslint
 
 amazon:
   accessKey: ${AWS_ACCESS_KEY}

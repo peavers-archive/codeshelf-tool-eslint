@@ -1,4 +1,4 @@
-package com.example.eslint.service;
+package io.codeshelf.eslint.service;
 
 import java.io.IOException;
 
