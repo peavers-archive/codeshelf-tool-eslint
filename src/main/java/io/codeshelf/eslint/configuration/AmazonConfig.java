@@ -19,13 +19,16 @@ public class AmazonConfig {
   @Value("${amazon.secretKey}")
   public String secretKey;
 
+  @Value("${amazon.region}")
+  public String region;
+
   @Bean
   public AmazonKinesisFirehose amazonKinesisFirehose() {
 
     return AmazonKinesisFirehoseClientBuilder.standard()
         .withCredentials(
             new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
-        .withRegion(Regions.US_EAST_1)
+        .withRegion(region)
         .build();
   }
 }
