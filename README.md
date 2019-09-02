@@ -15,4 +15,4 @@ You'll need to make sure the environment variables found in the application.yml 
 The working directory should be the `src` directory of a javascript based project. 
 
 ## W.I.P
-Remember just a random messing about, a random work in possibly never progress ;) 
+This may never get another commit, or it might get many... 
