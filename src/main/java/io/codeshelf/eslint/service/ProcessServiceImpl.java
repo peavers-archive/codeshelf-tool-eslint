@@ -3,6 +3,7 @@ package io.codeshelf.eslint.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -19,9 +20,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProcessServiceImpl implements ProcessService {
 
-  private final String SOURCE = "/Users/chris/IdeaProjects/haps-network-app";
-
   private final FirehoseService firehoseService;
+
+  @Value("${eslint.workingDir}")
+  private String workingDir;
 
   @Override
   public void execute() throws IOException {
@@ -46,7 +48,7 @@ public class ProcessServiceImpl implements ProcessService {
   private List<String> eslintCommand() {
     final ArrayList<String> commands = new ArrayList<>();
     commands.add("eslint");
-    commands.add(SOURCE + "/**");
+    commands.add(workingDir + "/**");
     commands.add("--format");
     commands.add("json");
 

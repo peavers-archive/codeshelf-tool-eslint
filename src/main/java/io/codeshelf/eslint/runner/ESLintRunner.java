@@ -20,7 +20,7 @@ public class ESLintRunner implements CommandLineRunner {
     public void run(final String... strings) {
         try {
             processService.execute();
-        } catch (IOException | InterruptedException e) {
+        } catch (final IOException | InterruptedException e) {
             log.error("something went wrong... {}", e.getMessage());
         }
     }
