@@ -7,5 +7,6 @@ amazon:
   secretKey: ${AWS_SECRET_KEY}
   region: ${AWS_REGION}
 
-eslint:
+codeshelf:
+  dry: true
   workingDir: ${WORKING_DIR}

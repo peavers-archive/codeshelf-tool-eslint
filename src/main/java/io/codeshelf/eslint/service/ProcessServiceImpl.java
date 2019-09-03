@@ -11,56 +11,68 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/** @author Chris Turner (chris@forloop.space) */
+/**
+ * @author Chris Turner (chris@forloop.space)
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProcessServiceImpl implements ProcessService {
 
-  private final FirehoseService firehoseService;
+    private final FirehoseService firehoseService;
 
-  @Value("${eslint.workingDir}")
-  private String workingDir;
+    @Value("${codeshelf.workingDir}")
+    private String workingDir;
 
-  @Override
-  public void execute() throws IOException {
+    @Value("${codeshelf.dry}")
+    private boolean dry;
 
-    final ProcessBuilder processBuilder = new ProcessBuilder(eslintCommand());
-    final Process process = processBuilder.start();
-    final String output = consoleOutput(process.getInputStream());
-    final String error = consoleOutput(process.getErrorStream());
+    @Override
+    public void execute() throws IOException {
 
-    if (StringUtils.isNotBlank(error)) {
-      log.error(error);
-    } else {
-      log.info("eslint result {}", output);
+        final List<String> command = buildCommand();
+
+        log.info("executing command {}", Arrays.toString(command.toArray()).replace(",", ""));
+
+        final ProcessBuilder processBuilder = new ProcessBuilder(command);
+        final Process process = processBuilder.start();
+        final String output = consoleOutput(process.getInputStream());
+        final String error = consoleOutput(process.getErrorStream());
+
+        if (StringUtils.isNotBlank(error)) {
+            log.error(error);
+        } else {
+            log.info("result {}", output);
+        }
+
+        process.getInputStream().close();
+        process.getErrorStream().close();
+
+        if (!dry) {
+            firehoseService.pushRecord("code-linter", output.getBytes());
+        }
     }
 
-    process.getInputStream().close();
-    process.getErrorStream().close();
+    private List<String> buildCommand() {
+        final ArrayList<String> commands = new ArrayList<>();
+        commands.add("eslint");
+        commands.add(workingDir + "/**");
+        commands.add("--format");
+        commands.add("json");
 
-    firehoseService.pushRecord("code-linter", output.getBytes());
-  }
+        return commands;
+    }
 
-  private List<String> eslintCommand() {
-    final ArrayList<String> commands = new ArrayList<>();
-    commands.add("eslint");
-    commands.add(workingDir + "/**");
-    commands.add("--format");
-    commands.add("json");
+    private String consoleOutput(final InputStream stream) {
+        final BufferedReader output = new BufferedReader(new InputStreamReader(stream));
 
-    return commands;
-  }
-
-  private String consoleOutput(final InputStream stream) {
-    final BufferedReader output = new BufferedReader(new InputStreamReader(stream));
-
-    return output
-        .lines()
-        .map(line -> line + System.getProperty("line.separator"))
-        .collect(Collectors.joining());
-  }
+        return output
+                .lines()
+                .map(line -> line + System.getProperty("line.separator"))
+                .collect(Collectors.joining());
+    }
 }
