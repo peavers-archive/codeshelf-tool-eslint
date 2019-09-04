@@ -1,7 +1,7 @@
 package io.codeshelf.eslint.configuration;
 
-import io.codeshelf.eslint.runner.ESLintRunner;
-import io.codeshelf.eslint.service.ProcessService;
+import io.codeshelf.eslint.runner.ProcessRunner;
+import io.codeshelf.tool.executor.service.ProcessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +16,6 @@ public class RunnerConfig {
 
   @Bean
   public CommandLineRunner commandLineRunner() {
-    return new ESLintRunner(processService);
+    return new ProcessRunner(processService);
   }
 }

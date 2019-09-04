@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.1.7.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'java'
+    id 'maven'
 }
 
 group = 'com.example'
@@ -15,6 +16,7 @@ configurations {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -23,11 +25,12 @@ ext {
 }
 
 dependencies {
+    implementation 'io.codeshelf:tool-executor:0.0.1-SNAPSHOT'
     implementation 'org.springframework.cloud:spring-cloud-starter-task'
-    implementation 'com.amazonaws:amazon-kinesis-client:1.11.2'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
