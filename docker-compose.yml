@@ -1,0 +1,17 @@
+version: '3.2'
+services:
+  codeshelf-tool-eslint:
+    container_name: codeshelf-tool-eslint
+    build: .
+    volumes:
+      - ${PWD}:/Users/chris/IdeaProjects/handbook
+    environment:
+      - WORKING_DIR=/src
+      - DRY=true
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
