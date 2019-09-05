@@ -1,5 +1,5 @@
-# Codeshelf Tool ESLINT
-Send the output from executing ESLINT to AWS Firehose
+# Codeshelf Tool ESLint
+Send the output from executing ESLint to AWS Firehose
 
 ## Badges
 The most important part of a readme of course
