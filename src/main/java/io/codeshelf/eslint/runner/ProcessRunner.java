@@ -29,7 +29,7 @@ public class ProcessRunner implements CommandLineRunner {
     command.add("json");
 
     try {
-      processService.execute(command);
+      processService.execute(command, "code-linter");
     } catch (final IOException | InterruptedException e) {
       log.error("something went wrong... {}", e.getMessage());
     }

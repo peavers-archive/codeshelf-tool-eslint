@@ -7,3 +7,4 @@ spring:
 codeshelf:
   dry: ${DRY}
   workingDir: ${WORKING_DIR}
+  deliveryStream: "codeshelf-tool-eslint"
