@@ -19,6 +19,9 @@ public class ProcessRunner implements CommandLineRunner {
   @Value("${codeshelf.workingDir}")
   private String workingDir;
 
+  @Value("${codeshelf.deliveryStream}")
+  private String deliveryStream;
+
   @Override
   public void run(final String... strings) {
 
@@ -29,7 +32,7 @@ public class ProcessRunner implements CommandLineRunner {
     command.add("json");
 
     try {
-      processService.execute(command, "code-linter");
+      processService.execute(command, deliveryStream);
     } catch (final IOException | InterruptedException e) {
       log.error("something went wrong... {}", e.getMessage());
     }
