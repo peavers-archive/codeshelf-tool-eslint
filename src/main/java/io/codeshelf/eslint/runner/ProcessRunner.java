@@ -34,7 +34,7 @@ public class ProcessRunner implements CommandLineRunner {
     try {
       processService.execute(command, deliveryStream);
     } catch (final IOException | InterruptedException e) {
-      log.error("something went wrong... {}", e.getMessage());
+      log.error("error {}", e.getMessage());
     }
   }
 }
