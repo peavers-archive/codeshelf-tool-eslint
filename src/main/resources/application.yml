@@ -1,6 +1,8 @@
 spring:
   application:
     name: codeshelf-tool-eslint
+  main:
+    banner-mode: "off"
 
 codeshelf:
   dry: ${DRY}
