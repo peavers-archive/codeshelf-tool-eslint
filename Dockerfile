@@ -16,8 +16,6 @@ RUN npm install -g eslint@${ESLINT_VERSION} \
            /usr/lib/node_modules/npm/html && \
     find /usr/lib/node_modules/npm -name test -o -name .bin -type d | xargs rm -rf
 
-CMD /usr/lib/node_modules/.bin/eslint
-
 COPY ./build/libs/codeshelf-tool-eslint-0.0.1-SNAPSHOT.jar /app/
 
 CMD ["java", "-jar", "/app/codeshelf-tool-eslint-0.0.1-SNAPSHOT.jar"]
